@@ -3,7 +3,7 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 
 // Fetch necessary data for the blog post using params.id
 export async function getStaticProps({ params }) {
-  const postData = getPostData(params.id)
+  const postData = await getPostData(params.id)
   return {
     props: {
       postData
@@ -20,6 +20,7 @@ export async function getStaticPaths() {
   }
 }
 
+
 export default function Post({ postData }) {
     return (
       <Layout>
@@ -28,6 +29,8 @@ export default function Post({ postData }) {
         {postData.id}
         <br />
         {postData.date}
+        <br />
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </Layout>
     )
   }
